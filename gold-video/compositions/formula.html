@@ -1,0 +1,74 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: Montserrat, sans-serif; color: #f7f1e1; }
+    #f-cam { position: absolute; inset: 0; transform-origin: 50% 30%; }
+    .gtxt { background: linear-gradient(180deg, #fbe9b0 0%, #e9c46a 50%, #b8872e 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .col { position: absolute; top: 230px; width: 440px; text-align: center; }
+    #f-modal { left: 70px; } #f-berat { left: 570px; }
+    .col small { display: block; font-weight: 700; font-size: 28px; letter-spacing: 0.16em; color: #afc0dd; }
+    .col b { display: block; font-family: "Playfair Display", serif; font-weight: 900; font-size: 82px; line-height: 1.2; margin-top: 10px; }
+    #f-div { position: absolute; left: 120px; top: 480px; width: 840px; height: 6px; background: #e9c46a; border-radius: 3px; }
+    #f-op { position: absolute; left: 490px; top: 446px; width: 100px; height: 74px; border-radius: 37px; background: #e9c46a; color: #071733; font-weight: 900; font-size: 56px; display: flex; align-items: center; justify-content: center; }
+    #f-res { position: absolute; left: 0; top: 560px; width: 1080px; text-align: center; opacity: 0; }
+    #f-res .lab { font-weight: 800; font-size: 38px; letter-spacing: 0.22em; color: #e9c46a; padding-left: 0.22em; }
+    #f-res .num { font-family: "Playfair Display", serif; font-weight: 900; font-size: 168px; line-height: 1.12; margin-top: 12px; }
+    #f-res .unit { font-weight: 800; font-size: 60px; margin-top: 2px; }
+    #f-glow { position: absolute; left: 140px; top: 640px; width: 800px; height: 500px; border-radius: 50%; opacity: 0;
+      background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(233,196,106,0.45), rgba(233,196,106,0) 70%); }
+    #f-chart { position: absolute; left: 90px; top: 905px; width: 900px; height: 215px; opacity: 0; }
+    #f-chart svg { width: 900px; height: 215px; overflow: visible; }
+    .ct { font-family: Montserrat, sans-serif; font-weight: 800; font-size: 28px; fill: #f7f1e1; text-anchor: middle; }
+  </style>
+  <div data-hf-id="hf-0a87" id="root" data-composition-id="formula" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-126z" id="f-cam">
+      <div data-hf-id="hf-y2m5" id="f-glow"></div>
+      <div data-hf-id="hf-iov0" id="f-modal" class="col clip" data-start="0.2" data-duration="6.8"><small data-hf-id="hf-me7c">JUMLAH MODAL</small><b data-hf-id="hf-bkb0" class="gtxt" id="f-mv">RM 1,200</b></div>
+      <div data-hf-id="hf-24qv" id="f-berat" class="col clip" data-start="1.2" data-duration="5.8"><small data-hf-id="hf-myqh">JUMLAH BERAT</small><b data-hf-id="hf-zvph" class="gtxt" id="f-bv">3.9766 g</b></div>
+      <div data-hf-id="hf-e0zs" id="f-div" class="clip" data-start="2.2" data-duration="4.8"></div>
+      <div data-hf-id="hf-vpvn" id="f-op" class="clip" data-start="2.4" data-duration="4.6">÷</div>
+      <div data-hf-id="hf-1ouz" id="f-res" class="clip" data-start="2.6" data-duration="4.4"><div data-hf-id="hf-bhql" class="lab">KOS PURATA SE-GRAM</div><div data-hf-id="hf-y2e3" class="num gtxt" id="f-rv">RM000.00</div><div data-hf-id="hf-o43a" class="unit">/ gram</div></div>
+      <div data-hf-id="hf-4wcp" id="f-chart" class="clip" data-start="4.2" data-duration="2.8">
+        <svg data-hf-id="hf-rnko" viewBox="0 0 900 215">
+          <path data-hf-id="hf-yl7g" id="f-pl" pathLength="1" d="M60 90 L300 40 L540 180 L780 76" fill="none" stroke="#afc0dd" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <g data-hf-id="hf-wu36" transform="translate(60,90)"><circle data-hf-id="hf-thga" r="11" fill="#afc0dd"/><text data-hf-id="hf-of5i" class="ct" y="-22">RM300</text></g>
+          <g data-hf-id="hf-ce8m" transform="translate(300,40)"><circle data-hf-id="hf-t2ny" r="11" fill="#afc0dd"/><text data-hf-id="hf-t37o" class="ct" y="-22">RM320</text></g>
+          <g data-hf-id="hf-gbld" transform="translate(540,180)"><circle data-hf-id="hf-tgyz" r="11" fill="#afc0dd"/><text data-hf-id="hf-3u7a" class="ct" y="42">RM280</text></g>
+          <g data-hf-id="hf-2gqj" transform="translate(780,76)"><circle data-hf-id="hf-tva0" r="11" fill="#afc0dd"/><text data-hf-id="hf-p6tb" class="ct" y="-22">RM310</text></g>
+          <path data-hf-id="hf-9xd4" id="f-avg" pathLength="1" d="M20 112 L880 112" stroke="#e9c46a" stroke-width="6" stroke-dasharray="1" fill="none" style="filter: drop-shadow(0 0 10px rgba(233,196,106,0.7))"/>
+          <text data-hf-id="hf-zkil" id="f-avgt" x="450" y="148" class="ct" style="fill:#e9c46a">KOS PURATA RM301.76</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+      // open tight on the inputs, pull out as the sum builds
+      tl.fromTo("#f-cam", { scale: 1.12 }, { scale: 1, duration: 0.9, ease: "power2.inOut" }, 1.2);
+      tl.fromTo("#f-modal", { opacity: 0, filter: "blur(10px)", y: 30 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.35, ease: "power4.out" }, 0.25);
+      var mo = { v: 0 };
+      tl.to(mo, { v: 1200, duration: 0.7, ease: "power2.out", onUpdate: function () { document.getElementById("f-mv").textContent = "RM " + Math.round(mo.v).toLocaleString("en-US"); } }, 0.3);
+      tl.fromTo("#f-berat", { opacity: 0, filter: "blur(10px)", y: 30 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.35, ease: "power4.out" }, 1.25);
+      var bo = { v: 0 };
+      tl.to(bo, { v: 3.9766, duration: 0.7, ease: "power2.out", onUpdate: function () { document.getElementById("f-bv").textContent = bo.v.toFixed(4) + " g"; } }, 1.3);
+      tl.fromTo("#f-div", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "expo.out" }, 2.25);
+      tl.fromTo("#f-op", { scale: 0 }, { scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 2.4);
+      // suspense: result counts up while the riser builds, locks on 3.4
+      tl.set("#f-res", { opacity: 1 }, 2.65);
+      tl.fromTo("#f-res", { filter: "blur(8px)" }, { filter: "blur(0px)", duration: 0.3, ease: "power2.out" }, 2.65);
+      var ro = { v: 0 };
+      tl.to(ro, { v: 301.76, duration: 0.75, ease: "power2.in", onUpdate: function () { document.getElementById("f-rv").textContent = "RM" + ro.v.toFixed(2); } }, 2.65);
+      tl.fromTo("#f-rv", { scale: 1.12 }, { scale: 1, duration: 0.45, ease: "power4.out" }, 3.4);
+      tl.fromTo("#f-glow", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1.1, duration: 0.5, ease: "power3.out" }, 3.4);
+      tl.to("#f-glow", { opacity: 0.55, duration: 1.2, ease: "power2.inOut" }, 3.9);
+      tl.to("#f-cam", { scale: 1.06, duration: 0.5, ease: "power3.out" }, 3.4);
+      tl.to("#f-cam", { scale: 1, duration: 0.6, ease: "power2.inOut" }, 4.1);
+      // proof: prices swing, the average sits still
+      tl.fromTo("#f-chart", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 4.25);
+      tl.fromTo("#f-pl", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut" }, 4.35);
+      tl.fromTo("#f-avg", { strokeDasharray: "1 1", strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 5.05);
+      tl.fromTo("#f-avgt", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 5.55);
+      window.__timelines["formula"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,204 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: Montserrat, sans-serif; color: #f7f1e1; }
+    #mo-cam { position: absolute; inset: 0; transform-origin: 50% 40%; }
+    .gtxt { background: linear-gradient(180deg, #fbe9b0 0%, #e9c46a 50%, #b8872e 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    #rail { position: absolute; left: 124px; top: 205px; width: 832px; height: 60px; display: flex; gap: 24px; }
+    .pill { width: 190px; height: 60px; border-radius: 30px; border: 3px solid rgba(233,196,106,0.6); color: #afc0dd; font-weight: 800; font-size: 28px; letter-spacing: 0.08em; display: flex; align-items: center; justify-content: center; }
+    .mg { position: absolute; inset: 0; }
+    .inner { position: absolute; inset: 0; }
+    .bag { position: absolute; left: 95px; top: 300px; width: 300px; height: 321px; }
+    .arrow { position: absolute; left: 410px; top: 430px; width: 150px; height: 56px; }
+    .bar { position: absolute; left: 580px; top: 360px; width: 400px; height: 242px; }
+    .grams { position: absolute; left: 0; top: 650px; width: 1080px; text-align: center; font-family: "Playfair Display", serif; font-weight: 900; font-size: 168px; line-height: 1.1; }
+    .price { position: absolute; left: 0; top: 835px; width: 1080px; text-align: center; font-weight: 700; font-size: 48px; }
+    .tagp { position: absolute; left: 330px; top: 905px; width: 420px; height: 64px; border: 4px solid; border-radius: 32px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 28px; letter-spacing: 0.1em; background: rgba(5,14,34,0.55); }
+    .tally { position: absolute; left: 90px; top: 995px; width: 900px; display: flex; justify-content: space-between; }
+    .tally div { width: 430px; text-align: center; }
+    .tally small { display: block; font-weight: 700; font-size: 28px; letter-spacing: 0.16em; color: #afc0dd; }
+    .tally b { display: block; font-weight: 800; font-size: 46px; color: #f7f1e1; margin-top: 4px; }
+  </style>
+  <div data-hf-id="hf-jp44" id="root" data-composition-id="months" data-width="1080" data-height="1920">
+    <svg data-hf-id="hf-8rgt" width="0" height="0" style="position:absolute">
+      <defs data-hf-id="hf-mh0t">
+        <linearGradient data-hf-id="hf-0yrc" id="gold-g" x1="0" y1="0" x2="0" y2="1"><stop data-hf-id="hf-3o2o" offset="0" stop-color="#fbe9b0"/><stop data-hf-id="hf-jteh" offset="0.45" stop-color="#e9c46a"/><stop data-hf-id="hf-letx" offset="1" stop-color="#b8872e"/></linearGradient>
+        <linearGradient data-hf-id="hf-gplu" id="bag-g" x1="0" y1="0" x2="0" y2="1"><stop data-hf-id="hf-eq41" offset="0" stop-color="#cfa04a"/><stop data-hf-id="hf-td04" offset="1" stop-color="#8c6521"/></linearGradient>
+        <clipPath data-hf-id="hf-48xr" id="bar-clip"><polygon data-hf-id="hf-1okg" points="34,92 304,92 304,166 34,166"/></clipPath>
+      </defs>
+    </svg>
+    <div data-hf-id="hf-6osb" id="mo-cam">
+      <div data-hf-id="hf-zihv" id="rail" class="clip" data-start="0" data-duration="14.4">
+        <div data-hf-id="hf-cldi" class="pill" id="pill1">BULAN 1</div><div data-hf-id="hf-peny" class="pill" id="pill2">BULAN 2</div><div data-hf-id="hf-x0f2" class="pill" id="pill3">BULAN 3</div><div data-hf-id="hf-hfwm" class="pill" id="pill4">BULAN 4</div>
+      </div>
+      
+    <div data-hf-id="hf-ctlx" id="m1" class="mg clip" data-start="0.0" data-duration="3.6">
+      <div data-hf-id="hf-gdug" class="inner" id="m1-in">
+        <svg data-hf-id="hf-q09o" id="m1-bag" class="bag" viewBox="0 0 280 300">
+          <ellipse data-hf-id="hf-93px" cx="140" cy="70" rx="62" ry="17" fill="url(#gold-g)"/><ellipse data-hf-id="hf-6mrl" cx="108" cy="52" rx="48" ry="14" fill="url(#gold-g)" opacity="0.9"/><ellipse data-hf-id="hf-s1c4" cx="170" cy="48" rx="42" ry="13" fill="#f3d58a"/>
+          <path data-hf-id="hf-rbd4" d="M92 92 C55 145 18 205 48 258 C70 292 210 292 232 258 C262 205 225 145 188 92 Z" fill="url(#bag-g)"/>
+          <path data-hf-id="hf-jvak" d="M98 94 Q140 116 182 94 L178 78 Q140 98 102 78 Z" fill="#7a5418"/>
+          <text data-hf-id="hf-66gg" x="140" y="196" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="38" fill="#f7f1e1">RM</text>
+          <text data-hf-id="hf-v9pu" x="140" y="250" text-anchor="middle" font-family="Montserrat" font-weight="900" font-size="58" fill="#f7f1e1">300</text>
+        </svg>
+        <svg data-hf-id="hf-erxk" id="m1-arrow" class="arrow" viewBox="0 0 160 60"><path data-hf-id="hf-3xtz" pathLength="1" d="M8 30 L136 30 M108 8 L140 30 L108 52" fill="none" stroke="#e9c46a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg data-hf-id="hf-46gx" id="m1-bar" class="bar" viewBox="0 0 330 200">
+          <polygon data-hf-id="hf-spxp" points="76,26 262,26 304,92 34,92" fill="#f6dc95"/>
+          <polygon data-hf-id="hf-0flj" points="34,92 304,92 304,166 34,166" fill="url(#gold-g)"/>
+          <polygon data-hf-id="hf-6ve6" points="46,104 292,104 292,154 46,154" fill="none" stroke="#8c6521" stroke-width="3" opacity="0.6"/>
+          <text data-hf-id="hf-p57z" x="169" y="140" text-anchor="middle" font-family="Montserrat" font-weight="900" font-size="34" fill="#7a5418">999.9 · 1g</text>
+          <g data-hf-id="hf-docr" clip-path="url(#bar-clip)"><rect data-hf-id="hf-6hyb" id="m1-sheen" x="-120" y="0" width="70" height="200" fill="#ffffff" opacity="0.55" transform="skewX(-20)"/></g>
+        </svg>
+        <div data-hf-id="hf-1j38" id="m1-g" class="grams gtxt">0.0000g</div>
+        <div data-hf-id="hf-q24r" id="m1-p" class="price">Harga RM300/g</div>
+        <div data-hf-id="hf-yjf8" id="m1-t" class="tagp" style="border-color:#e9c46a;color:#e9c46a">HARGA ASAS</div>
+        <div data-hf-id="hf-h2vf" id="m1-tally" class="tally"><div data-hf-id="hf-yeow"><small data-hf-id="hf-me7c">JUMLAH MODAL</small><b data-hf-id="hf-h7uh">RM 300</b></div><div data-hf-id="hf-y7yw"><small data-hf-id="hf-myqh">JUMLAH BERAT</small><b data-hf-id="hf-5b8f">1.0000 g</b></div></div>
+      </div>
+    </div>
+    <div data-hf-id="hf-g7i7" id="m2" class="mg clip" data-start="3.6" data-duration="3.6">
+      <div data-hf-id="hf-3r9x" class="inner" id="m2-in">
+        <svg data-hf-id="hf-y7mv" id="m2-bag" class="bag" viewBox="0 0 280 300">
+          <ellipse data-hf-id="hf-70ax" cx="140" cy="70" rx="62" ry="17" fill="url(#gold-g)"/><ellipse data-hf-id="hf-xz2t" cx="108" cy="52" rx="48" ry="14" fill="url(#gold-g)" opacity="0.9"/><ellipse data-hf-id="hf-2t4s" cx="170" cy="48" rx="42" ry="13" fill="#f3d58a"/>
+          <path data-hf-id="hf-xpds" d="M92 92 C55 145 18 205 48 258 C70 292 210 292 232 258 C262 205 225 145 188 92 Z" fill="url(#bag-g)"/>
+          <path data-hf-id="hf-dk90" d="M98 94 Q140 116 182 94 L178 78 Q140 98 102 78 Z" fill="#7a5418"/>
+          <text data-hf-id="hf-z18o" x="140" y="196" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="38" fill="#f7f1e1">RM</text>
+          <text data-hf-id="hf-zt86" x="140" y="250" text-anchor="middle" font-family="Montserrat" font-weight="900" font-size="58" fill="#f7f1e1">300</text>
+        </svg>
+        <svg data-hf-id="hf-6u0d" id="m2-arrow" class="arrow" viewBox="0 0 160 60"><path data-hf-id="hf-0hlz" pathLength="1" d="M8 30 L136 30 M108 8 L140 30 L108 52" fill="none" stroke="#e9c46a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg data-hf-id="hf-xvpa" id="m2-bar" class="bar" viewBox="0 0 330 200">
+          <polygon data-hf-id="hf-yjy9" points="76,26 262,26 304,92 34,92" fill="#f6dc95"/>
+          <polygon data-hf-id="hf-yqyf" points="34,92 304,92 304,166 34,166" fill="url(#gold-g)"/>
+          <polygon data-hf-id="hf-jhpu" points="46,104 292,104 292,154 46,154" fill="none" stroke="#8c6521" stroke-width="3" opacity="0.6"/>
+          <text data-hf-id="hf-8udr" x="169" y="140" text-anchor="middle" font-family="Montserrat" font-weight="900" font-size="34" fill="#7a5418">999.9 · 1g</text>
+          <g data-hf-id="hf-utij" clip-path="url(#bar-clip)"><rect data-hf-id="hf-2s94" id="m2-sheen" x="-120" y="0" width="70" height="200" fill="#ffffff" opacity="0.55" transform="skewX(-20)"/></g>
+        </svg>
+        <div data-hf-id="hf-8x1l" id="m2-g" class="grams gtxt">0.0000g</div>
+        <div data-hf-id="hf-0a80" id="m2-p" class="price">Harga RM320/g</div>
+        <div data-hf-id="hf-sn96" id="m2-t" class="tagp" style="border-color:#ff8a7a;color:#ff8a7a">▲ HARGA NAIK</div>
+        <div data-hf-id="hf-if0o" id="m2-tally" class="tally"><div data-hf-id="hf-x11t"><small data-hf-id="hf-trog">JUMLAH MODAL</small><b data-hf-id="hf-11cq">RM 600</b></div><div data-hf-id="hf-xfcu"><small data-hf-id="hf-e3al">JUMLAH BERAT</small><b data-hf-id="hf-9nz3">1.9375 g</b></div></div>
+      </div>
+    </div>
+    <div data-hf-id="hf-9fqu" id="m3" class="mg clip" data-start="7.2" data-duration="3.6">
+      <div data-hf-id="hf-hfia" class="inner" id="m3-in">
+        <svg data-hf-id="hf-zc6e" id="m3-bag" class="bag" viewBox="0 0 280 300">
+          <ellipse data-hf-id="hf-8780" cx="140" cy="70" rx="62" ry="17" fill="url(#gold-g)"/><ellipse data-hf-id="hf-z5zw" cx="108" cy="52" rx="48" ry="14" fill="url(#gold-g)" opacity="0.9"/><ellipse data-hf-id="hf-xk8l" cx="170" cy="48" rx="42" ry="13" fill="#f3d58a"/>
+          <path data-hf-id="hf-wigp" d="M92 92 C55 145 18 205 48 258 C70 292 210 292 232 258 C262 205 225 145 188 92 Z" fill="url(#bag-g)"/>
+          <path data-hf-id="hf-cdbx" d="M98 94 Q140 116 182 94 L178 78 Q140 98 102 78 Z" fill="#7a5418"/>
+          <text data-hf-id="hf-xubl" x="140" y="196" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="38" fill="#f7f1e1">RM</text>
+          <text data-hf-id="hf-07j7" x="140" y="250" text-anchor="middle" font-family="Montserrat" font-weight="900" font-size="58" fill="#f7f1e1">300</text>
+        </svg>
+        <svg data-hf-id="hf-kcau" id="m3-arrow" class="arrow" viewBox="0 0 160 60"><path data-hf-id="hf-03ay" pathLength="1" d="M8 30 L136 30 M108 8 L140 30 L108 52" fill="none" stroke="#e9c46a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg data-hf-id="hf-oomn" id="m3-bar" class="bar" viewBox="0 0 330 200">
+          <polygon data-hf-id="hf-zqvc" points="76,26 262,26 304,92 34,92" fill="#f6dc95"/>
+          <polygon data-hf-id="hf-ycne" points="34,92 304,92 304,166 34,166" fill="url(#gold-g)"/>
+          <polygon data-hf-id="hf-jw0v" points="46,104 292,104 292,154 46,154" fill="none" stroke="#8c6521" stroke-width="3" opacity="0.6"/>
+          <text data-hf-id="hf-8g2q" x="169" y="140" text-anchor="middle" font-family="Montserrat" font-weight="900" font-size="34" fill="#7a5418">999.9 · 1g</text>
+          <g data-hf-id="hf-uf7i" clip-path="url(#bar-clip)"><rect data-hf-id="hf-3fu1" id="m3-sheen" x="-120" y="0" width="70" height="200" fill="#ffffff" opacity="0.55" transform="skewX(-20)"/></g>
+        </svg>
+        <div data-hf-id="hf-7zty" id="m3-g" class="grams gtxt">0.0000g</div>
+        <div data-hf-id="hf-7tm2" id="m3-p" class="price">Harga RM280/g</div>
+        <div data-hf-id="hf-ynbe" id="m3-t" class="tagp" style="border-color:#6be3b0;color:#6be3b0">▼ HARGA TURUN</div>
+        <div data-hf-id="hf-b6cx" id="m3-tally" class="tally"><div data-hf-id="hf-w8fr"><small data-hf-id="hf-skrd">JUMLAH MODAL</small><b data-hf-id="hf-z2kr">RM 900</b></div><div data-hf-id="hf-wmqs"><small data-hf-id="hf-fa7o">JUMLAH BERAT</small><b data-hf-id="hf-0o1i">3.0089 g</b></div></div>
+      </div>
+    </div>
+    <div data-hf-id="hf-vuyh" id="m4" class="mg clip" data-start="10.8" data-duration="3.6">
+      <div data-hf-id="hf-oo47" class="inner" id="m4-in">
+        <svg data-hf-id="hf-rhs1" id="m4-bag" class="bag" viewBox="0 0 280 300">
+          <ellipse data-hf-id="hf-7swz" cx="140" cy="70" rx="62" ry="17" fill="url(#gold-g)"/><ellipse data-hf-id="hf-yrov" cx="108" cy="52" rx="48" ry="14" fill="url(#gold-g)" opacity="0.9"/><ellipse data-hf-id="hf-xyjm" cx="170" cy="48" rx="42" ry="13" fill="#f3d58a"/>
+          <path data-hf-id="hf-wwrq" d="M92 92 C55 145 18 205 48 258 C70 292 210 292 232 258 C262 205 225 145 188 92 Z" fill="url(#bag-g)"/>
+          <path data-hf-id="hf-crmy" d="M98 94 Q140 116 182 94 L178 78 Q140 98 102 78 Z" fill="#7a5418"/>
+          <text data-hf-id="hf-y8mm" x="140" y="196" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="38" fill="#f7f1e1">RM</text>
+          <text data-hf-id="hf-0lu8" x="140" y="250" text-anchor="middle" font-family="Montserrat" font-weight="900" font-size="58" fill="#f7f1e1">300</text>
+        </svg>
+        <svg data-hf-id="hf-1qir" id="m4-arrow" class="arrow" viewBox="0 0 160 60"><path data-hf-id="hf-zozx" pathLength="1" d="M8 30 L136 30 M108 8 L140 30 L108 52" fill="none" stroke="#e9c46a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg data-hf-id="hf-knmk" id="m4-bar" class="bar" viewBox="0 0 330 200">
+          <polygon data-hf-id="hf-zckb" points="76,26 262,26 304,92 34,92" fill="#f6dc95"/>
+          <polygon data-hf-id="hf-xycd" points="34,92 304,92 304,166 34,166" fill="url(#gold-g)"/>
+          <polygon data-hf-id="hf-kabw" points="46,104 292,104 292,154 46,154" fill="none" stroke="#8c6521" stroke-width="3" opacity="0.6"/>
+          <text data-hf-id="hf-81rp" x="169" y="140" text-anchor="middle" font-family="Montserrat" font-weight="900" font-size="34" fill="#7a5418">999.9 · 1g</text>
+          <g data-hf-id="hf-u0wh" clip-path="url(#bar-clip)"><rect data-hf-id="hf-4riu" id="m4-sheen" x="-120" y="0" width="70" height="200" fill="#ffffff" opacity="0.55" transform="skewX(-20)"/></g>
+        </svg>
+        <div data-hf-id="hf-qdeb" id="m4-g" class="grams gtxt">0.0000g</div>
+        <div data-hf-id="hf-grtd" id="m4-p" class="price">Harga RM310/g</div>
+        <div data-hf-id="hf-7o24" id="m4-t" class="tagp" style="border-color:#ff8a7a;color:#ff8a7a">▲ HARGA NAIK</div>
+        <div data-hf-id="hf-6xwe" id="m4-tally" class="tally"><div data-hf-id="hf-vftp"><small data-hf-id="hf-sz2e">JUMLAH MODAL</small><b data-hf-id="hf-m8kd">RM 1,200</b></div><div data-hf-id="hf-vu4q"><small data-hf-id="hf-evwn">JUMLAH BERAT</small><b data-hf-id="hf-wuc9">3.9766 g</b></div></div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+      tl.set(".pill", { backgroundColor: "rgba(233,196,106,0.0)" }, 0);
+      tl.fromTo("#rail", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.05);
+      
+      (function(){
+        var s = 0.0, o = { v: 0 }, el = document.getElementById("m1-g");
+        tl.fromTo("#m1-bag", { opacity: 0, y: 50, scale: 0.85, filter: "blur(8px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power4.out" }, s + 0.0);
+        tl.fromTo("#m1-arrow path", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.inOut" }, s + 0.35);
+        tl.fromTo("#m1-bar", { opacity: 0, scale: 0.8, x: 40, filter: "blur(10px)" }, { opacity: 1, scale: 1, x: 0, filter: "blur(0px)", duration: 0.5, ease: "power4.out" }, s + 0.55);
+        tl.fromTo("#m1-sheen", { x: -120 }, { x: 480, duration: 0.7, ease: "power2.inOut" }, s + 1.1);
+        tl.fromTo("#m1-g", { opacity: 0 }, { opacity: 1, duration: 0.15 }, s + 0.75);
+        tl.to(o, { v: 1.0, duration: 0.45, ease: "power2.out", onUpdate: function() { el.textContent = o.v.toFixed(4) + "g"; } }, s + 0.75);
+        tl.fromTo("#m1-g", { scale: 1.1 }, { scale: 1, duration: 0.35, ease: "power4.out" }, s + 1.2);
+        tl.fromTo("#m1-p", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power3.out" }, s + 1.0);
+        tl.fromTo("#m1-t", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, s + 1.25);
+        tl.fromTo("#m1-tally", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, s + 1.55);
+        tl.to("#m1-in", { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power2.in" }, s + 3.35);
+        tl.to("#pill1", { backgroundColor: "#e9c46a", color: "#071733", borderColor: "#e9c46a", duration: 0.25, ease: "power2.out" }, s + 0.0);
+        tl.to("#pill1", { backgroundColor: "rgba(233,196,106,0.18)", color: "#e9c46a", duration: 0.25 }, s + 3.6);
+      })();
+      (function(){
+        var s = 3.6, o = { v: 0 }, el = document.getElementById("m2-g");
+        tl.fromTo("#m2-bag", { opacity: 0, y: 50, scale: 0.85, filter: "blur(8px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power4.out" }, s + 0.0);
+        tl.fromTo("#m2-arrow path", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.inOut" }, s + 0.35);
+        tl.fromTo("#m2-bar", { opacity: 0, scale: 0.8, x: 40, filter: "blur(10px)" }, { opacity: 1, scale: 1, x: 0, filter: "blur(0px)", duration: 0.5, ease: "power4.out" }, s + 0.55);
+        tl.fromTo("#m2-sheen", { x: -120 }, { x: 480, duration: 0.7, ease: "power2.inOut" }, s + 1.1);
+        tl.fromTo("#m2-g", { opacity: 0 }, { opacity: 1, duration: 0.15 }, s + 0.75);
+        tl.to(o, { v: 0.9375, duration: 0.45, ease: "power2.out", onUpdate: function() { el.textContent = o.v.toFixed(4) + "g"; } }, s + 0.75);
+        tl.fromTo("#m2-g", { scale: 1.1 }, { scale: 1, duration: 0.35, ease: "power4.out" }, s + 1.2);
+        tl.fromTo("#m2-p", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power3.out" }, s + 1.0);
+        tl.fromTo("#m2-t", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, s + 1.25);
+        tl.fromTo("#m2-tally", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, s + 1.55);
+        tl.to("#m2-in", { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power2.in" }, s + 3.35);
+        tl.to("#pill2", { backgroundColor: "#e9c46a", color: "#071733", borderColor: "#e9c46a", duration: 0.25, ease: "power2.out" }, s + 0.0);
+        tl.to("#pill2", { backgroundColor: "rgba(233,196,106,0.18)", color: "#e9c46a", duration: 0.25 }, s + 3.6);
+      })();
+      (function(){
+        var s = 7.2, o = { v: 0 }, el = document.getElementById("m3-g");
+        tl.fromTo("#m3-bag", { opacity: 0, y: 50, scale: 0.85, filter: "blur(8px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power4.out" }, s + 0.0);
+        tl.fromTo("#m3-arrow path", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.inOut" }, s + 0.35);
+        tl.fromTo("#m3-bar", { opacity: 0, scale: 0.8, x: 40, filter: "blur(10px)" }, { opacity: 1, scale: 1, x: 0, filter: "blur(0px)", duration: 0.5, ease: "power4.out" }, s + 0.55);
+        tl.fromTo("#m3-sheen", { x: -120 }, { x: 480, duration: 0.7, ease: "power2.inOut" }, s + 1.1);
+        tl.fromTo("#m3-g", { opacity: 0 }, { opacity: 1, duration: 0.15 }, s + 0.75);
+        tl.to(o, { v: 1.0714, duration: 0.45, ease: "power2.out", onUpdate: function() { el.textContent = o.v.toFixed(4) + "g"; } }, s + 0.75);
+        tl.fromTo("#m3-g", { scale: 1.1 }, { scale: 1, duration: 0.35, ease: "power4.out" }, s + 1.2);
+        tl.fromTo("#m3-p", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power3.out" }, s + 1.0);
+        tl.fromTo("#m3-t", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, s + 1.25);
+        tl.fromTo("#m3-tally", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, s + 1.55);
+        tl.to("#m3-in", { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power2.in" }, s + 3.35);
+        tl.to("#pill3", { backgroundColor: "#e9c46a", color: "#071733", borderColor: "#e9c46a", duration: 0.25, ease: "power2.out" }, s + 0.0);
+        tl.to("#pill3", { backgroundColor: "rgba(233,196,106,0.18)", color: "#e9c46a", duration: 0.25 }, s + 3.6);
+      })();
+      (function(){
+        var s = 10.8, o = { v: 0 }, el = document.getElementById("m4-g");
+        tl.fromTo("#m4-bag", { opacity: 0, y: 50, scale: 0.85, filter: "blur(8px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power4.out" }, s + 0.0);
+        tl.fromTo("#m4-arrow path", { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.inOut" }, s + 0.35);
+        tl.fromTo("#m4-bar", { opacity: 0, scale: 0.8, x: 40, filter: "blur(10px)" }, { opacity: 1, scale: 1, x: 0, filter: "blur(0px)", duration: 0.5, ease: "power4.out" }, s + 0.55);
+        tl.fromTo("#m4-sheen", { x: -120 }, { x: 480, duration: 0.7, ease: "power2.inOut" }, s + 1.1);
+        tl.fromTo("#m4-g", { opacity: 0 }, { opacity: 1, duration: 0.15 }, s + 0.75);
+        tl.to(o, { v: 0.9677, duration: 0.45, ease: "power2.out", onUpdate: function() { el.textContent = o.v.toFixed(4) + "g"; } }, s + 0.75);
+        tl.fromTo("#m4-g", { scale: 1.1 }, { scale: 1, duration: 0.35, ease: "power4.out" }, s + 1.2);
+        tl.fromTo("#m4-p", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power3.out" }, s + 1.0);
+        tl.fromTo("#m4-t", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, s + 1.25);
+        tl.fromTo("#m4-tally", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, s + 1.55);
+        tl.to("#m4-in", { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power2.in" }, s + 3.35);
+        tl.to("#pill4", { backgroundColor: "#e9c46a", color: "#071733", borderColor: "#e9c46a", duration: 0.25, ease: "power2.out" }, s + 0.0);
+        tl.to("#pill4", { backgroundColor: "rgba(233,196,106,0.18)", color: "#e9c46a", duration: 0.25 }, s + 3.6);
+      })();
+      // month 3 is the point: price falls, you get more. Punch in on the grams.
+      tl.to("#mo-cam", { scale: 1.06, duration: 0.45, ease: "power3.out" }, 7.2 + 1.2);
+      tl.to("#mo-cam", { scale: 1, duration: 0.7, ease: "power2.inOut" }, 7.2 + 2.7);
+      window.__timelines["months"] = tl;
+    })();
+  </script>
+</template>
