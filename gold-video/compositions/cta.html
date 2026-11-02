@@ -1,0 +1,48 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: Montserrat, sans-serif; color: #f7f1e1; }
+    #c-cam { position: absolute; inset: 0; transform-origin: 50% 40%; }
+    .gtxt { background: linear-gradient(180deg, #fbe9b0 0%, #e9c46a 50%, #b8872e 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    #c-glow { position: absolute; left: 90px; top: 540px; width: 900px; height: 560px; border-radius: 50%; opacity: 0;
+      background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(233,196,106,0.5), rgba(233,196,106,0) 70%); }
+    .ln { position: absolute; left: 0; width: 1080px; text-align: center; font-weight: 800; line-height: 1.1; }
+    #c-1 { top: 380px; font-size: 62px; }
+    #c-2 { top: 470px; font-size: 62px; }
+    #c-3 { top: 595px; font-size: 108px; font-weight: 900; letter-spacing: -0.01em; }
+    #c-3 .w { display: inline-block; }
+    #c-sheen { position: absolute; left: 0; top: 590px; width: 140px; height: 150px; opacity: 0; mix-blend-mode: screen;
+      background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,255,255,0.85), rgba(255,255,255,0) 70%); }
+    #c-4 { top: 780px; font-size: 62px; }
+    #c-4 b { color: #e9c46a; font-weight: 900; }
+    #c-pill { position: absolute; left: 0; top: 920px; width: 1080px; text-align: center; }
+    #c-pill span { display: inline-flex; align-items: center; gap: 22px; padding: 22px 54px; border-radius: 70px; background: #e9c46a; color: #071733; font-weight: 900; font-size: 48px; letter-spacing: 0.1em; }
+    #c-pill svg { width: 48px; height: 56px; }
+  </style>
+  <div data-hf-id="hf-rebv" id="root" data-composition-id="cta" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-vdeu" id="c-cam">
+      <div data-hf-id="hf-8nsq" id="c-glow"></div>
+      <div data-hf-id="hf-edcw" id="c-1" class="ln clip" data-start="0.2" data-duration="5">Sesiapa berminat</div>
+      <div data-hf-id="hf-jjbr" id="c-2" class="ln clip" data-start="0.7" data-duration="4.5">simpan emas bersama</div>
+      <div data-hf-id="hf-uubd" id="c-3" class="ln clip" data-start="1.3" data-duration="3.9"><span data-hf-id="hf-w3nc" class="w gtxt">PUBLIC</span> <span data-hf-id="hf-1sej" class="w gtxt">GOLD</span></div>
+      <div data-hf-id="hf-4q73" id="c-sheen" class="clip" data-start="1.7" data-duration="1" data-layout-ignore></div>
+      <div data-hf-id="hf-zlyv" id="c-4" class="ln clip" data-start="2.2" data-duration="3"><span data-hf-id="hf-mb1y">boleh klik <b data-hf-id="hf-5gwb">link bio</b></span></div>
+      <div data-hf-id="hf-j5el" id="c-pill" class="clip" data-start="2.9" data-duration="2.3"><span data-hf-id="hf-qcce">LINK DI BIO <svg data-hf-id="hf-c3t4" viewBox="0 0 48 56"><path data-hf-id="hf-ugnu" id="c-arrow" d="M24 50 L24 8 M8 24 L24 8 L40 24" fill="none" stroke="#071733" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+      tl.fromTo("#c-cam", { scale: 1.1 }, { scale: 1, duration: 1.2, ease: "power2.out" }, 0);
+      tl.fromTo("#c-1", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power3.out" }, 0.25);
+      tl.fromTo("#c-2", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power3.out" }, 0.75);
+      tl.fromTo("#c-3 .w", { opacity: 0, scale: 1.25, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.4, ease: "expo.out", stagger: 0.14 }, 1.3);
+      tl.fromTo("#c-glow", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1.05, duration: 0.8, ease: "power3.out" }, 1.4);
+      tl.fromTo("#c-sheen", { opacity: 1, x: 130 }, { opacity: 1, x: 860, duration: 0.7, ease: "power2.inOut" }, 1.75);
+      tl.set("#c-sheen", { opacity: 0 }, 2.5);
+      tl.fromTo("#c-4", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power3.out" }, 2.25);
+      tl.fromTo("#c-pill", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.5)" }, 2.95);
+      tl.fromTo("#c-arrow", { y: 14 }, { y: -4, duration: 0.5, ease: "power3.out" }, 3.3);
+      window.__timelines["cta"] = tl;
+    })();
+  </script>
+</template>

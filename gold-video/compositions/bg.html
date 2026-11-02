@@ -1,0 +1,59 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    #bg-base { position: absolute; inset: 0; background: radial-gradient(ellipse 95% 70% at 50% 36%, #153877 0%, #0b2250 42%, #050e22 100%); }
+    #bg-key { position: absolute; left: -380px; top: -420px; width: 1300px; height: 1300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(233,176,80,0.20) 0%, rgba(233,176,80,0.06) 38%, rgba(233,196,106,0) 68%); }
+    #bg-rim { position: absolute; right: -500px; bottom: -400px; width: 1300px; height: 1300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(50,100,220,0.16) 0%, rgba(70,120,220,0) 65%); }
+    #bg-leak { position: absolute; left: 0; top: -300px; width: 360px; height: 2600px; opacity: 0;
+      background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,226,150,0.16), rgba(255,226,150,0) 70%); }
+    #bg-dust { position: absolute; inset: 0; }
+    .dust { position: absolute; border-radius: 50%; background: #f6dc95; }
+  </style>
+  <div data-hf-id="hf-dzqo" id="root" data-composition-id="bg" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-cqm9" id="bg-base" class="clip" data-start="0" data-duration="44"></div>
+    <div data-hf-id="hf-nmkn" id="bg-key" class="clip" data-start="0" data-duration="44"></div>
+    <div data-hf-id="hf-gx02" id="bg-rim" class="clip" data-start="0" data-duration="44"></div>
+    <div data-hf-id="hf-cw7f" id="bg-leak" class="clip" data-start="0" data-duration="44"></div>
+    <div data-hf-id="hf-b0wy" id="bg-dust" class="clip" data-start="0" data-duration="44"></div>
+  </div>
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+      // deterministic dust field (seeded)
+      var seed = 7;
+      function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+      var host = document.getElementById("bg-dust");
+      var dots = [];
+      for (var i = 0; i < 26; i++) {
+        var d = document.createElement("div");
+        d.className = "dust";
+        var s = 3 + Math.round(rnd() * 6);
+        d.style.width = s + "px"; d.style.height = s + "px";
+        d.style.left = Math.round(rnd() * 1060) + "px";
+        d.style.top = Math.round(120 + rnd() * 1700) + "px";
+        d.style.opacity = (0.18 + rnd() * 0.4).toFixed(2);
+        host.appendChild(d);
+        dots.push({ el: d, dy: 120 + rnd() * 260, dx: (rnd() - 0.5) * 80 });
+      }
+      dots.forEach(function (o) {
+        tl.fromTo(o.el, { y: 0, x: 0 }, { y: -o.dy, x: o.dx, duration: 44, ease: "none" }, 0);
+      });
+      // lighting: key light travels from top-left to top-right, flares on the result reveal and on the CTA
+      tl.fromTo("#bg-key", { x: 0, y: 0 }, { x: 560, y: 80, duration: 26, ease: "power1.inOut" }, 0);
+      tl.to("#bg-key", { opacity: 1.0, duration: 0.01 }, 0);
+      tl.to("#bg-key", { scale: 1.35, duration: 0.5, ease: "power3.out" }, 26.2);
+      tl.to("#bg-key", { scale: 1.1, duration: 2.2, ease: "power2.inOut" }, 26.7);
+      tl.to("#bg-key", { x: 330, y: 560, duration: 5.5, ease: "power2.inOut" }, 38.5 - 0 - 0.001);
+      // light leaks at two scene changes
+      tl.set("#bg-leak", { x: -400, opacity: 0 }, 0);
+      tl.to("#bg-leak", { x: 1300, opacity: 1, duration: 1.2, ease: "power2.inOut" }, 7.9);
+      tl.to("#bg-leak", { opacity: 0, duration: 0.3 }, 9.1);
+      tl.set("#bg-leak", { x: 1300, opacity: 0 }, 29.2);
+      tl.to("#bg-leak", { x: -400, opacity: 1, duration: 1.2, ease: "power2.inOut" }, 29.3);
+      tl.to("#bg-leak", { opacity: 0, duration: 0.3 }, 30.5);
+      window.__timelines["bg"] = tl;
+    })();
+  </script>
+</template>

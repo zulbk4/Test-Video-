@@ -1,0 +1,45 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: Montserrat, sans-serif; color: #f7f1e1; }
+    #t-wrap { position: absolute; inset: 0; transform-origin: 50% 40%; }
+    #t-img { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; opacity: 0.2; }
+    #t-shade { position: absolute; inset: 0; background: radial-gradient(ellipse 85% 55% at 50% 45%, rgba(5,14,34,0.55) 0%, rgba(5,14,34,0.88) 100%); }
+    .gtxt { background: linear-gradient(180deg, #fbe9b0 0%, #e9c46a 50%, #b8872e 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    #t-kick { position: absolute; left: 0; top: 470px; width: 1080px; text-align: center; font-weight: 800; font-size: 40px; letter-spacing: 0.5em; padding-left: 0.5em; color: #e9c46a; }
+    #t-h { position: absolute; left: 0; top: 540px; width: 1080px; text-align: center; font-weight: 900; font-size: 112px; line-height: 1.08; letter-spacing: -0.01em; }
+    #t-h .l { display: block; }
+    #t-h .w { display: inline-block; }
+    #t-rule { position: absolute; left: 270px; top: 815px; width: 540px; height: 6px; background: #e9c46a; border-radius: 3px; transform-origin: 50% 50%; }
+    #t-chip { position: absolute; left: 0; top: 870px; width: 1080px; text-align: center; }
+    #t-chip span { display: inline-block; padding: 18px 40px; border: 4px solid #e9c46a; border-radius: 60px; font-weight: 800; font-size: 40px; letter-spacing: 0.18em; color: #f7f1e1; background: rgba(5,14,34,0.55); }
+    #t-chip b { color: #e9c46a; }
+  </style>
+  <div data-hf-id="hf-fia3" id="root" data-composition-id="title" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-1su8" id="t-wrap">
+      <div data-hf-id="hf-asdd" id="t-broll" style="position:absolute;inset:0">
+        <img data-hf-id="hf-ih04" id="t-img" class="clip" data-start="0" data-duration="4" src="assets/img/infographic-source.jpg" alt="" />
+      </div>
+      <div data-hf-id="hf-3053" id="t-shade"></div>
+      <div data-hf-id="hf-898g" id="t-kick" class="clip" data-start="0.2" data-duration="3.8">KONSEP</div>
+      <div data-hf-id="hf-a8ta" id="t-h" class="clip" data-start="0.2" data-duration="3.8">
+        <span data-hf-id="hf-e457" class="l"><span data-hf-id="hf-m764" class="w">PEMURATAAN</span></span>
+        <span data-hf-id="hf-5ut7" class="l"><span data-hf-id="hf-g1ec" class="w gtxt">HARGA</span> <span data-hf-id="hf-vrpn" class="w gtxt">EMAS</span></span>
+      </div>
+      <div data-hf-id="hf-ouoc" id="t-rule" class="clip" data-start="0.7" data-duration="3.3"></div>
+      <div data-hf-id="hf-gbtg" id="t-chip" class="clip" data-start="0.9" data-duration="3.1"><span data-hf-id="hf-yn9t">(GAP) &nbsp;·&nbsp; <b data-hf-id="hf-q59y">PUBLIC GOLD</b></span></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+      // b-roll: source infographic, slow zoom, behind a navy shade
+      tl.fromTo("#t-broll", { scale: 1.06 }, { scale: 1.22, duration: 4, ease: "power1.inOut" }, 0);
+      tl.fromTo("#t-kick", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power3.out" }, 0.25);
+      var ws = document.querySelectorAll("#t-h .w");
+      tl.fromTo(ws, { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power3.out", stagger: 0.12 }, 0.35);
+      tl.fromTo("#t-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "expo.out" }, 0.8);
+      tl.fromTo("#t-chip", { opacity: 0, filter: "blur(8px)", y: 20 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.3, ease: "power4.out" }, 1.0);
+      window.__timelines["title"] = tl;
+    })();
+  </script>
+</template>
