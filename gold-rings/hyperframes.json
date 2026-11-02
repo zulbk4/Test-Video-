@@ -9,5 +9,12 @@
   "media": {
     "autoProxy": true
   },
-  "authoringSkill": "hyperframes"
+  "authoringSkill": "hyperframes",
+  "registryItems": [
+    {
+      "name": "caption-highlight",
+      "type": "hyperframes:component",
+      "target": "compositions/components/caption-highlight.html"
+    }
+  ]
 }
