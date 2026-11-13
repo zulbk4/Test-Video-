@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Personal Performance</title>
+<style>
+  :root{--bg:#f4f6fa;--card:#fff;--text:#1d2433;--muted:#6b7385;--line:#e5e8ef;--accent:#4f46e5;--good:#16a34a;--bad:#dc2626;--warn:#d97706}
+  @media (prefers-color-scheme:dark){:root{--bg:#0f1320;--card:#181d2e;--text:#e8ebf5;--muted:#8d95aa;--line:#272d42;--accent:#818cf8;--good:#4ade80;--bad:#f87171;--warn:#fbbf24}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  .wrap{max-width:1100px;margin:0 auto;padding:24px 16px 48px}
+  header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:20px}
+  h1{font-size:22px;margin:0}
+  .sub{color:var(--muted);font-size:13px}
+  .controls{display:flex;gap:8px;flex-wrap:wrap}
+  select,button{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font:inherit;cursor:pointer}
+  button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .grid{display:grid;gap:16px}
+  .kpis{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-bottom:16px}
+  .two{grid-template-columns:2fr 1fr;margin-bottom:16px}
+  @media(max-width:800px){.two{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .card h2{font-size:14px;margin:0 0 12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+  .kpi .val{font-size:28px;font-weight:700}
+  .kpi .delta{font-size:13px;font-weight:600}
+  .up{color:var(--good)}.down{color:var(--bad)}
+  .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:8px}
+  .bar>i{display:block;height:100%;background:var(--accent);border-radius:99px}
+  svg{width:100%;height:auto;display:block}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase}
+  td.num,th.num{text-align:right}
+  .tag{padding:2px 8px;border-radius:99px;font-size:12px;font-weight:600}
+  .tag.ok{background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good)}
+  .tag.mid{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+  .tag.low{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+  .legend{display:flex;gap:14px;font-size:12px;color:var(--muted);margin-top:8px}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px}
+  .rank{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .rank:last-child{border:0}
+  .rank .n{width:26px;height:26px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-size:12px;font-weight:700}
+  .rank.me{font-weight:700}.rank.me .n{background:var(--accent);color:#fff}
+  .rank .name{flex:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Personal Performance</h1>
+      <div class="sub" id="who">Ahmad Faiz · Sales Executive · <span id="periodLabel"></span></div>
+    </div>
+    <div class="controls">
+      <select id="period" aria-label="Tempoh">
+        <option value="3">3 bulan lepas</option>
+        <option value="6" selected>6 bulan lepas</option>
+        <option value="12">12 bulan lepas</option>
+      </select>
+      <button id="export" class="primary">Export CSV</button>
+    </div>
+  </header>
+
+  <section class="grid kpis" id="kpis"></section>
+
+  <section class="grid two">
+    <div class="card">
+      <h2>Jualan Bulanan vs Sasaran (RM)</h2>
+      <div id="chart"></div>
+      <div class="legend"><span><i style="background:var(--accent)"></i>Jualan</span><span><i style="background:var(--warn)"></i>Sasaran</span></div>
+    </div>
+    <div class="card">
+      <h2>Ranking Pasukan</h2>
+      <div id="rank"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Butiran Bulanan</h2>
+    <div style="overflow-x:auto"><table>
+      <thead><tr><th>Bulan</th><th class="num">Jualan (RM)</th><th class="num">Sasaran (RM)</th><th class="num">Pencapaian</th><th class="num">Order</th><th class="num">Pelanggan Baru</th><th>Status</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+</div>
+
+<script>
+// ---- Data dummy: ganti dengan fetch() ke API sebenar ----
+const MONTHS=["Jan","Feb","Mac","Apr","Mei","Jun","Jul","Ogo","Sep","Okt","Nov","Dis"];
+const DATA=[
+  {m:"Dis 2025",sales:41200,target:45000,orders:132,newc:18},
+  {m:"Jan",sales:46800,target:45000,orders:149,newc:22},
+  {m:"Feb",sales:43950,target:48000,orders:141,newc:17},
+  {m:"Mac",sales:52400,target:48000,orders:168,newc:25},
+  {m:"Apr",sales:49100,target:50000,orders:157,newc:20},
+  {m:"Mei",sales:55800,target:50000,orders:179,newc:27},
+  {m:"Jun",sales:58300,target:52000,orders:188,newc:30},
+  {m:"Jul",sales:54200,target:52000,orders:173,newc:24},
+  {m:"Ogo",sales:60900,target:55000,orders:196,newc:31},
+  {m:"Sep",sales:57600,target:55000,orders:184,newc:26},
+  {m:"Okt",sales:63100,target:58000,orders:203,newc:33},
+  {m:"Nov",sales:38700,target:58000,orders:124,newc:19}
+];
+const TEAM=[["Siti Aminah",68200],["Ahmad Faiz",63100],["Daniel Tan",59800],["Priya Nair",55400],["Hafiz Rahman",51000]];
+
+const fmt=n=>n.toLocaleString("en-MY");
+const pct=(a,b)=>Math.round(a/b*100);
+const $=id=>document.getElementById(id);
+let view=[];
+
+function render(){
+  const n=+$("period").value;
+  view=DATA.slice(-n);
+  const prev=DATA.slice(-2*n,-n);
+  $("periodLabel").textContent=`${view[0].m} – ${view[view.length-1].m}`;
+
+  const sum=(arr,k)=>arr.reduce((s,x)=>s+x[k],0);
+  const tot={sales:sum(view,"sales"),target:sum(view,"target"),orders:sum(view,"orders"),newc:sum(view,"newc")};
+  const delta=(k)=>{ if(!prev.length) return null; const p=sum(prev,k); return p?Math.round((tot[k]-p)/p*100):null; };
+  const kpi=[
+    {t:"Jumlah Jualan",v:"RM "+fmt(tot.sales),d:delta("sales")},
+    {t:"Pencapaian Sasaran",v:pct(tot.sales,tot.target)+"%",bar:Math.min(100,pct(tot.sales,tot.target))},
+    {t:"Jumlah Order",v:fmt(tot.orders),d:delta("orders")},
+    {t:"Pelanggan Baru",v:fmt(tot.newc),d:delta("newc")},
+    {t:"Purata Nilai Order",v:"RM "+fmt(Math.round(tot.sales/tot.orders))}
+  ];
+  $("kpis").innerHTML=kpi.map(k=>`<div class="card kpi"><h2>${k.t}</h2><div class="val">${k.v}</div>`+
+    (k.d!=null?`<div class="delta ${k.d>=0?"up":"down"}">${k.d>=0?"▲":"▼"} ${Math.abs(k.d)}% vs tempoh lepas</div>`:"")+
+    (k.bar!=null?`<div class="bar"><i style="width:${k.bar}%"></i></div>`:"")+`</div>`).join("");
+
+  chart(view);
+  $("rows").innerHTML=view.map(r=>{
+    const p=pct(r.sales,r.target), c=p>=100?"ok":p>=90?"mid":"low", s=p>=100?"Capai":p>=90?"Hampir":"Bawah";
+    return `<tr><td>${r.m}</td><td class="num">${fmt(r.sales)}</td><td class="num">${fmt(r.target)}</td><td class="num">${p}%</td><td class="num">${r.orders}</td><td class="num">${r.newc}</td><td><span class="tag ${c}">${s}</span></td></tr>`;
+  }).join("");
+  $("rank").innerHTML=TEAM.map((t,i)=>`<div class="rank ${t[0]==="Ahmad Faiz"?"me":""}"><span class="n">${i+1}</span><span class="name">${t[0]}</span><span>RM ${fmt(t[1])}</span></div>`).join("");
+}
+
+function chart(rows){
+  const W=640,H=280,P={l:48,r:12,t:12,b:28};
+  const max=Math.ceil(Math.max(...rows.map(r=>Math.max(r.sales,r.target)))/10000)*10000;
+  const iw=W-P.l-P.r, ih=H-P.t-P.b, bw=iw/rows.length;
+  const y=v=>P.t+ih-v/max*ih;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Carta jualan vs sasaran">`;
+  for(let i=0;i<=4;i++){const v=max/4*i;s+=`<line x1="${P.l}" x2="${W-P.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${P.l-6}" y="${y(v)+4}" text-anchor="end" font-size="10" fill="var(--muted)">${v/1000}k</text>`;}
+  rows.forEach((r,i)=>{
+    const x=P.l+i*bw+bw*.2, w=bw*.6;
+    s+=`<rect x="${x}" y="${y(r.sales)}" width="${w}" height="${P.t+ih-y(r.sales)}" rx="4" fill="var(--accent)"><title>${r.m}: RM ${fmt(r.sales)}</title></rect>`;
+    s+=`<line x1="${x-3}" x2="${x+w+3}" y1="${y(r.target)}" y2="${y(r.target)}" stroke="var(--warn)" stroke-width="3"><title>Sasaran: RM ${fmt(r.target)}</title></line>`;
+    s+=`<text x="${x+w/2}" y="${H-8}" text-anchor="middle" font-size="10" fill="var(--muted)">${r.m.split(" ")[0]}</text>`;
+  });
+  $("chart").innerHTML=s+"</svg>";
+}
+
+$("period").addEventListener("change",render);
+$("export").addEventListener("click",()=>{
+  const csv=["Bulan,Jualan,Sasaran,Order,PelangganBaru",...view.map(r=>[r.m,r.sales,r.target,r.orders,r.newc].join(","))].join("\n");
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
+  a.download="personal-performance.csv";a.click();
+});
+render();
+</script>
+</body>
+</html>
