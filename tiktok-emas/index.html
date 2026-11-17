@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground: #1c0003;
+        --red: #7a0010;
+        --red-deep: #3a0007;
+        --gold: #f6c453;
+        --gold-light: #ffe9a0;
+        --gold-dark: #b07a1a;
+        --ink: #ffffff;
+        --f-display: "Archivo Black", "Montserrat", sans-serif;
+        --f-cond: "Oswald", sans-serif;
+        --f-body: "Montserrat", sans-serif;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--ground); }
+      #root { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; background: var(--ground); font-family: var(--f-body); color: var(--ink); overflow: hidden; }
+      .scene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; }
+      .abs { position: absolute; }
+      .gold-text {
+        background: linear-gradient(180deg, #fff1b8 0%, #f6c453 45%, #b07a1a 100%);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+        filter: drop-shadow(0 6px 0 rgba(60, 20, 0, 0.55));
+      }
+      .center { left: 0; width: 1080px; text-align: center; white-space: nowrap; }
+      .fade-edges { -webkit-mask-image: radial-gradient(ellipse at center, #000 55%, transparent 100%); mask-image: radial-gradient(ellipse at center, #000 55%, transparent 100%); }
+
+      /* backgrounds */
+      .bg-red { background: radial-gradient(ellipse at 50% 38%, #8a0014 0%, #4a0009 55%, #1c0003 100%); }
+      .bg-dark { background: radial-gradient(ellipse at 50% 45%, #2e0508 0%, #120102 70%, #050000 100%); }
+
+      /* S1 */
+      #s1-a { top: 470px; font: 150px/1 var(--f-display); letter-spacing: -3px; }
+      #s1-b { top: 650px; font: 112px/1 var(--f-display); color: #fff; letter-spacing: -2px; text-shadow: 0 8px 0 rgba(0,0,0,.5); }
+      .ghost { color: #ff2a3a; mix-blend-mode: screen; opacity: 0; }
+      .ghost2 { color: #19e6ff; mix-blend-mode: screen; opacity: 0; }
+
+      /* S2 */
+      .slam { font: 230px/1 var(--f-display); letter-spacing: -4px; color: #fff; text-shadow: 0 10px 0 rgba(0,0,0,.55); }
+      #s2-1 { top: 330px; }
+      #s2-2 { top: 600px; color: #ff4a4a; }
+      #s2-3 { top: 900px; font-size: 84px; color: var(--gold-light); font-family: var(--f-display); }
+
+      /* S3 */
+      #s3-a { top: 250px; font: 118px/1 var(--f-display); letter-spacing: -2px; }
+      #s3-b { top: 390px; font: 100px/1 var(--f-display); letter-spacing: -2px; }
+      #s3-img { left: 50px; top: 640px; width: 980px; height: 372px; background: url(assets/gold-cash.png) center/cover no-repeat; }
+      .spark { width: 34px; height: 34px; background: radial-gradient(circle, #fff 0%, #ffe9a0 35%, transparent 70%); border-radius: 50%; }
+
+      /* S4 */
+      .row { left: 80px; width: 860px; height: 170px; border-radius: 30px; background: linear-gradient(90deg, rgba(246,196,83,.22), rgba(246,196,83,.06)); border: 3px solid var(--gold); display: flex; align-items: center; padding-left: 40px; }
+      .tick { width: 88px; height: 88px; border-radius: 50%; background: linear-gradient(180deg, #ffe9a0, #d99a1e); flex: none; position: relative; }
+      .tick::after { content: ""; position: absolute; left: 29px; top: 14px; width: 24px; height: 46px; border-right: 10px solid #5a0008; border-bottom: 10px solid #5a0008; transform: rotate(40deg); }
+      .row .t { margin-left: 32px; font: 700 62px/1.05 var(--f-cond); letter-spacing: 1px; text-transform: uppercase; }
+      .row .t small { display: block; font: 600 40px/1.1 var(--f-body); color: var(--gold-light); text-transform: none; letter-spacing: 0; margin-top: 6px; }
+      #r1 { top: 230px; } #r2 { top: 430px; } #r3 { top: 630px; } #r4 { top: 830px; }
+
+      /* S5 */
+      #s5-label { top: 220px; font: 600 44px/1 var(--f-body); letter-spacing: 3px; color: var(--gold-light); }
+      .prow { left: 70px; width: 880px; height: 300px; display: flex; align-items: center; justify-content: space-between; }
+      .big { font: 250px/1 var(--f-cond); font-weight: 700; }
+      .unit { font: 700 46px/1 var(--f-cond); color: var(--gold-light); letter-spacing: 4px; }
+      .rm { font: 700 140px/1 var(--f-cond); color: #fff; text-shadow: 0 8px 0 rgba(0,0,0,.5); }
+      #p1 { top: 320px; } #p2 { top: 660px; }
+      #divider { left: 80px; top: 640px; width: 860px; height: 4px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+      #s5-forms { left: 80px; top: 990px; width: 860px; height: 96px; border-radius: 48px; background: linear-gradient(90deg, #d99a1e, #ffe9a0, #d99a1e); color: #4a0009; font: 800 42px/96px var(--f-body); text-align: center; }
+      #s5-note { top: 1100px; font: 500 30px/1 var(--f-body); color: rgba(255,255,255,.75); }
+
+      /* S6 */
+      #s6-panel { left: 0; top: 0; width: 1080px; height: 1920px; background: linear-gradient(180deg, #8a0014, #3a0007); }
+      #s6-logo { left: 280px; top: 190px; width: 520px; height: 208px; background: url(assets/logo.png) center/cover no-repeat; -webkit-mask-image: radial-gradient(ellipse at center, #000 50%, transparent 100%); mask-image: radial-gradient(ellipse at center, #000 50%, transparent 100%); }
+      #s6-face { left: 380px; top: 400px; width: 320px; height: 320px; border-radius: 50%; border: 8px solid var(--gold); background: url(assets/portrait.png) center/cover no-repeat; box-shadow: 0 0 60px rgba(246,196,83,.55); }
+      #s6-pg { left: 270px; top: 735px; width: 540px; height: 70px; border-radius: 35px; background: linear-gradient(90deg, #d99a1e, #ffe9a0, #d99a1e); color: #4a0009; font: 800 38px/70px var(--f-body); text-align: center; }
+      #s6-h1 { top: 835px; font: 104px/1 var(--f-display); letter-spacing: -3px; }
+      #s6-h2 { top: 990px; font: 800 62px/1 var(--f-body); color: #fff; }
+      #s6-url { left: 120px; top: 1090px; width: 840px; height: 100px; border-radius: 50px; background: #fff; color: #7a0010; font: 800 50px/100px var(--f-body); text-align: center; box-shadow: 0 0 0 0 rgba(246,196,83,.8); }
+
+      /* captions */
+      .cap { position: absolute; left: 50px; width: 880px; top: 1215px; height: 150px; display: flex; align-items: center; justify-content: center; text-align: center; font: 800 56px/1.15 var(--f-body); color: #fff; text-shadow: 0 4px 0 rgba(0,0,0,.85), 0 0 18px rgba(0,0,0,.8); }
+      .cap b { color: var(--gold); font-weight: 800; }
+      .cap span { display: block; }
+
+      #flash { background: #fff3c4; opacity: 0; }
+      #blackout { background: #000; opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="30" data-width="1080" data-height="1920">
+
+      <!-- ===== S1 HOOK 0 - 2.8 : curiosity + frustration ===== -->
+      <div id="s1" class="scene clip bg-dark" data-start="0" data-duration="2.8" data-track-index="1" style="z-index:1">
+        <div id="s1-bg" class="abs fade-edges" style="left:-110px;top:420px;width:1300px;height:494px;background:url(assets/gold-cash.png) center/cover no-repeat;opacity:.3"></div>
+        <div id="s1-vig" class="abs" style="inset:0;background:radial-gradient(ellipse at 50% 45%, transparent 30%, rgba(0,0,0,.85) 100%)"></div>
+        <div id="s1-g1" class="abs center ghost" style="top:470px;font:150px/1 var(--f-display);letter-spacing:-3px;left:-10px">EMAS LAMA</div>
+        <div id="s1-g2" class="abs center ghost2" style="top:470px;font:150px/1 var(--f-display);letter-spacing:-3px;left:10px">EMAS LAMA</div>
+        <div id="s1-a" class="abs center gold-text">EMAS LAMA</div>
+        <div id="s1-b" class="abs center">DALAM LACI<span id="s1-q" style="display:inline-block;color:#ff4a4a">?</span></div>
+      </div>
+
+      <!-- ===== S2 PROBLEM 2.8 - 7.5 : tension ===== -->
+      <div id="s2" class="scene clip bg-dark" data-start="2.8" data-duration="4.7" data-track-index="1" style="z-index:2">
+        <div id="s2-img" class="abs fade-edges" style="left:-110px;top:760px;width:1300px;height:494px;background:url(assets/gold-cash.png) center/cover no-repeat;opacity:.22"></div>
+        <div id="s2-pulse" class="abs" style="inset:0;background:radial-gradient(ellipse at 50% 50%, rgba(190,0,20,.75), transparent 70%);opacity:0"></div>
+        <div id="s2-vig" class="abs" style="left:-540px;top:-960px;width:2160px;height:3840px;background:radial-gradient(ellipse at 50% 50%, transparent 28%, rgba(0,0,0,.95) 62%)"></div>
+        <div id="s2-box" class="abs" style="inset:0">
+          <div id="s2-1" class="abs center slam">PATAH.</div>
+          <div id="s2-2" class="abs center slam">ROSAK.</div>
+          <div id="s2-3" class="abs center">hanya disimpan<span id="s2-q" style="display:inline-block;color:#ff4a4a">?</span></div>
+        </div>
+        <div id="blackout" class="abs" style="inset:0"></div>
+      </div>
+
+      <!-- ===== S3 SOLUTION 7.5 - 13.5 : relief + excitement ===== -->
+      <div id="s3" class="scene clip bg-red" data-start="7.5" data-duration="6" data-track-index="1" style="z-index:3">
+        <div id="s3-glow" class="abs" style="left:90px;top:120px;width:900px;height:700px;background:radial-gradient(ellipse, rgba(255,214,110,.5), transparent 65%);opacity:0"></div>
+        <div id="s3-a" class="abs center gold-text">TUKAR EMAS</div>
+        <div id="s3-b" class="abs center gold-text">KEPADA TUNAI</div>
+        <div id="s3-img" class="abs fade-edges"></div>
+        <div id="sp1" class="abs spark" style="left:120px;top:240px"></div>
+        <div id="sp2" class="abs spark" style="left:880px;top:300px"></div>
+        <div id="sp3" class="abs spark" style="left:300px;top:560px"></div>
+        <div id="sp4" class="abs spark" style="left:780px;top:520px"></div>
+        <div id="sp5" class="abs spark" style="left:520px;top:170px"></div>
+        <div id="flash" class="abs" style="inset:0"></div>
+      </div>
+
+      <!-- ===== S4 BENEFITS 13.5 - 18.6 : value stack ===== -->
+      <div id="s4" class="scene clip bg-red" data-start="13.5" data-duration="5.1" data-track-index="1" style="z-index:4">
+        <div id="r1" class="abs row"><div class="tick"></div><div class="t">Harga tinggi<small>setanding pasaran</small></div></div>
+        <div id="r2" class="abs row"><div class="tick"></div><div class="t">Dijamin telus</div></div>
+        <div id="r3" class="abs row"><div class="tick"></div><div class="t">Boleh dipercayai</div></div>
+        <div id="r4" class="abs row"><div class="tick"></div><div class="t">Tukar emas lama<small>kepada yang baru</small></div></div>
+      </div>
+
+      <!-- ===== S5 PRICE 18.6 - 24 : value ===== -->
+      <div id="s5" class="scene clip bg-dark" data-start="18.6" data-duration="5.4" data-track-index="1" style="z-index:5">
+        <div id="s5-glow" class="abs" style="left:0;top:250px;width:1080px;height:800px;background:radial-gradient(ellipse, rgba(246,196,83,.22), transparent 65%)"></div>
+        <div id="s5-label" class="abs center">HARGA EMAS &bull; 15/11/2026</div>
+        <div id="p1" class="abs prow"><div style="display:flex;align-items:flex-end;gap:14px"><span class="big gold-text">999</span><span class="unit" style="margin-bottom:46px">EMAS</span></div><div class="rm" id="p1-rm">RM493</div></div>
+        <div id="divider" class="abs"></div>
+        <div id="p2" class="abs prow"><div style="display:flex;align-items:flex-end;gap:14px"><span class="big gold-text">916</span><span class="unit" style="margin-bottom:46px">EMAS</span></div><div class="rm" id="p2-rm">RM453</div></div>
+        <div id="s5-forms" class="abs">999 &bull; 916 &bull; 835 &bull; 750</div>
+        <div id="s5-note" class="abs center">*Tertakluk kepada terma &amp; syarat</div>
+      </div>
+
+      <!-- ===== S6 CTA 24 - 30 : action + trust ===== -->
+      <div id="s6" class="scene clip" data-start="24" data-duration="6" data-track-index="1" style="z-index:6">
+        <div id="s6-panel" class="abs"></div>
+        <div id="s6-logo" class="abs"></div>
+        <div id="s6-face" class="abs"></div>
+        <div id="s6-pg" class="abs">PG Code: PG00223324</div>
+        <div id="s6-h1" class="abs center gold-text">TUNAI SEGERA</div>
+        <div id="s6-h2" class="abs center">di Menara Public Gold</div>
+        <div id="s6-url" class="abs">www.publicgold.com.my</div>
+        <div id="s6-sub" class="abs center" style="top:1215px;font:600 0px/1 var(--f-body)"></div>
+      </div>
+
+      <!-- ===== CAPTIONS (burned-in, title-safe) ===== -->
+      <div id="c1" class="cap clip" data-start="0.25" data-duration="2.4" data-track-index="2" style="z-index:20"><span>Ada <b>emas lama</b> dalam laci?</span></div>
+      <div id="c2" class="cap clip" data-start="3.0" data-duration="3.6" data-track-index="2" style="z-index:20"><span>Rantai <b>patah</b>, cincin <b>rosak</b>, hanya disimpan?</span></div>
+      <div id="c3" class="cap clip" data-start="7.6" data-duration="2.2" data-track-index="2" style="z-index:20"><span>Tukar <b>emas kepada tunai!</b></span></div>
+      <div id="c4" class="cap clip" data-start="9.8" data-duration="3.7" data-track-index="2" style="z-index:20"><span>Kami terima barang kemas <b>lama</b> atau yang <b>rosak</b></span></div>
+      <div id="c5" class="cap clip" data-start="13.6" data-duration="2.4" data-track-index="2" style="z-index:20"><span><b>Harga tinggi</b> setanding pasaran</span></div>
+      <div id="c6" class="cap clip" data-start="16.0" data-duration="2.5" data-track-index="2" style="z-index:20"><span><b>Telus</b> dan boleh dipercayai</span></div>
+      <div id="c7" class="cap clip" data-start="18.8" data-duration="5.1" data-track-index="2" style="z-index:20"><span>Emas <b>999</b> &mdash; <b>RM493</b> &bull; Emas <b>916</b> &mdash; <b>RM453</b></span></div>
+      <div id="c8" class="cap clip" data-start="24.2" data-duration="3.0" data-track-index="2" style="z-index:20"><span><b>Tunai segera</b> di Menara Public Gold</span></div>
+      <div id="c9" class="cap clip" data-start="27.2" data-duration="2.8" data-track-index="2" style="z-index:20"><span>Semak harga di <b>publicgold.com.my</b></span></div>
+
+      <!-- ===== AUDIO ===== -->
+      <audio id="music" src="assets/music.mp3" data-start="0" data-duration="30" data-track-index="10" data-volume="0.32" data-fade-out="1"></audio>
+      <audio id="vo1" src="assets/vo/v1.wav" data-start="0.25" data-track-index="11" data-volume="1"></audio>
+      <audio id="vo2" src="assets/vo/v2.wav" data-start="3.0" data-track-index="11" data-volume="1"></audio>
+      <audio id="vo3" src="assets/vo/v3.wav" data-start="7.6" data-track-index="11" data-volume="1"></audio>
+      <audio id="vo4" src="assets/vo/v4.wav" data-start="13.6" data-track-index="11" data-volume="1"></audio>
+      <audio id="vo5" src="assets/vo/v5.wav" data-start="18.8" data-track-index="11" data-volume="1"></audio>
+      <audio id="vo6" src="assets/vo/v6.wav" data-start="24.3" data-track-index="11" data-volume="1"></audio>
+      <audio id="sx-g1" src="assets/sfx/glitch-1.mp3" data-start="0" data-duration="1.2" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="sx-g2" src="assets/sfx/glitch-2.mp3" data-start="2.55" data-duration="1.2" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="sx-ri" src="assets/sfx/riser.mp3" data-start="4.4" data-duration="2.8" data-track-index="12" data-volume="0.45" data-fade-out="0.2"></audio>
+      <audio id="sx-i1" src="assets/sfx/impact-bass-1.mp3" data-start="7.5" data-duration="2" data-track-index="12" data-volume="0.9"></audio>
+      <audio id="sx-w1" src="assets/sfx/whoosh-cinematic.mp3" data-start="7.2" data-duration="1.4" data-track-index="12" data-volume="0.0"></audio>
+      <audio id="sx-s1" src="assets/sfx/sparkle.mp3" data-start="8.0" data-duration="1.8" data-track-index="12" data-volume="0.6"></audio>
+      <audio id="sx-w2" src="assets/sfx/whoosh-short.mp3" data-start="13.45" data-track-index="12" data-volume="0.6"></audio>
+      <audio id="sx-p1" src="assets/sfx/pop.mp3" data-start="13.75" data-track-index="13" data-volume="0.7"></audio>
+      <audio id="sx-p2" src="assets/sfx/pop.mp3" data-start="15.9" data-track-index="13" data-volume="0.7"></audio>
+      <audio id="sx-p3" src="assets/sfx/pop.mp3" data-start="16.6" data-track-index="13" data-volume="0.7"></audio>
+      <audio id="sx-p4" src="assets/sfx/pop.mp3" data-start="17.1" data-track-index="13" data-volume="0.7"></audio>
+      <audio id="sx-w3" src="assets/sfx/whoosh.mp3" data-start="18.45" data-track-index="12" data-volume="0.6"></audio>
+      <audio id="sx-i2" src="assets/sfx/impact-bass-2.mp3" data-start="19.2" data-duration="1.6" data-track-index="12" data-volume="0.85"></audio>
+      <audio id="sx-i3" src="assets/sfx/impact-bass-1.mp3" data-start="21.5" data-duration="1.6" data-track-index="12" data-volume="0.7"></audio>
+      <audio id="sx-w4" src="assets/sfx/whoosh-cinematic.mp3" data-start="23.2" data-duration="1.5" data-track-index="12" data-volume="0.55"></audio>
+      <audio id="sx-c1" src="assets/sfx/chime.mp3" data-start="25.0" data-duration="2" data-track-index="12" data-volume="0.5"></audio>
+      <audio id="sx-s2" src="assets/sfx/sparkle.mp3" data-start="28.9" data-duration="1.1" data-track-index="12" data-volume="0.5"></audio>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const E = { out: "power3.out", expo: "expo.out", slam: "power4.out" };
+
+      /* ---------- S1 HOOK: interrupted, jerky, hard-edged ---------- */
+      tl.set("#s1-a,#s1-b", { opacity: 1 }, 0);
+      tl.to("#s1-bg", { scale: 1.12, duration: 2.8, ease: "none" }, 0);
+      // restrained glitch jitters (frustration)
+      [[0.0, 14], [0.9, 12], [1.7, 16], [2.35, 20]].forEach(([t, d]) => {
+        tl.fromTo("#s1-a", { x: -d }, { x: 0, duration: 0.14, ease: "steps(3)" }, t);
+        tl.fromTo("#s1-g1", { opacity: 0.9, x: -d }, { opacity: 0, duration: 0.16, ease: "steps(2)" }, t);
+        tl.fromTo("#s1-g2", { opacity: 0.9, x: d }, { opacity: 0, duration: 0.16, ease: "steps(2)" }, t);
+      });
+      tl.fromTo("#s1-b", { scale: 1.08 }, { scale: 1, duration: 0.18, ease: E.slam }, 0.25);
+      tl.fromTo("#s1-q", { scale: 2.2, rotation: -12 }, { scale: 1, rotation: 0, duration: 0.2, ease: E.slam }, 1.1);
+      tl.to("#s1-vig", { opacity: 1, duration: 2.8, ease: "none" }, 0);
+      tl.to("#s1-a", { scale: 1.06, duration: 2.4, ease: "none" }, 0.2);
+
+      /* ---------- S2 PROBLEM: heartbeat, compression, slams ---------- */
+      tl.fromTo("#s2-vig", { scale: 1.5 }, { scale: 0.62, duration: 4.4, ease: "power2.in" }, 2.8);
+      tl.fromTo("#s2-img", { scale: 1.2 }, { scale: 1, duration: 4.4, ease: "none" }, 2.8);
+      const beat = 60 / 112;
+      for (let i = 0; i * beat < 4.3; i++) {
+        const t = 2.8 + i * beat, k = 0.25 + 0.5 * Math.min(1, (i * beat) / 4.3);
+        tl.fromTo("#s2-pulse", { opacity: k }, { opacity: 0, duration: 0.3, ease: "power2.out" }, t);
+      }
+      const slamIn = (id, t, from) => {
+        tl.fromTo(id, { opacity: 0, scale: from, y: 0 }, { opacity: 1, scale: 1, duration: 0.14, ease: E.slam }, t);
+        tl.fromTo("#s2-box", { x: -16, y: 10 }, { x: 0, y: 0, duration: 0.25, ease: "elastic.out(1,0.3)" }, t);
+      };
+      tl.set("#s2-1,#s2-2,#s2-3", { opacity: 0 }, 2.8);
+      slamIn("#s2-1", 3.15, 1.6);
+      slamIn("#s2-2", 4.2, 1.6);
+      slamIn("#s2-3", 5.3, 1.3);
+      tl.fromTo("#s2-q", { scale: 2.5, rotation: 14 }, { scale: 1, rotation: 0, duration: 0.2, ease: E.slam }, 5.9);
+      tl.to("#s2-2", { x: 8, duration: 0.05, repeat: 5, yoyo: true, ease: "none" }, 6.1);
+      // strategic pause: hard cut to black, silence
+      tl.set("#blackout", { opacity: 1 }, 7.2);
+
+      /* ---------- S3 SOLUTION: flash, relief, smooth easing ---------- */
+      tl.fromTo("#flash", { opacity: 1 }, { opacity: 0, duration: 0.6, ease: "power2.out" }, 7.5);
+      tl.fromTo("#s3-glow", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1.1, duration: 1.4, ease: E.out }, 7.5);
+      tl.fromTo("#s3-a", { opacity: 0, scale: 1.35 }, { opacity: 1, scale: 1, duration: 0.7, ease: E.expo }, 7.5);
+      tl.fromTo("#s3-b", { opacity: 0, scale: 1.35 }, { opacity: 1, scale: 1, duration: 0.7, ease: E.expo }, 7.65);
+      tl.fromTo("#s3-img", { opacity: 0, y: 90 }, { opacity: 1, y: 0, duration: 0.9, ease: E.out }, 8.0);
+      tl.to("#s3-img", { y: -26, scale: 1.04, duration: 5.2, ease: "none" }, 8.9);
+      ["#sp1", "#sp2", "#sp3", "#sp4", "#sp5"].forEach((s, i) => {
+        tl.fromTo(s, { scale: 0, opacity: 0 }, { scale: 1.6, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 8.0 + i * 0.28);
+        tl.to(s, { scale: 0, opacity: 0, duration: 0.5, ease: "power2.in" }, 8.45 + i * 0.28);
+      });
+      tl.to("#s3-a,#s3-b", { y: -12, duration: 5, ease: "sine.inOut" }, 8.3);
+
+      /* ---------- S4 BENEFITS: progressive value stack ---------- */
+      [["#r1", 13.7], ["#r2", 15.9], ["#r3", 16.6], ["#r4", 17.1]].forEach(([r, t]) => {
+        tl.fromTo(r, { opacity: 0, x: -140 }, { opacity: 1, x: 0, duration: 0.45, ease: E.out }, t);
+        tl.fromTo(r + " .tick", { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(2.4)" }, t + 0.25);
+      });
+
+      /* ---------- S5 PRICE: number emphasis ---------- */
+      tl.fromTo("#s5-label", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.4, ease: E.out }, 18.7);
+      tl.fromTo("#p1", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.25, ease: E.slam }, 19.2);
+      tl.fromTo("#p1-rm", { scale: 1.25 }, { scale: 1, duration: 0.5, ease: "elastic.out(1,0.4)" }, 19.45);
+      tl.fromTo("#divider", { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.5, ease: E.out }, 21.2);
+      tl.fromTo("#p2", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.25, ease: E.slam }, 21.5);
+      tl.fromTo("#p2-rm", { scale: 1.25 }, { scale: 1, duration: 0.5, ease: "elastic.out(1,0.4)" }, 21.75);
+      tl.fromTo("#s5-forms", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: E.out }, 22.1);
+      tl.fromTo("#s5-note", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "none" }, 22.3);
+      tl.to("#s5-glow", { scale: 1.15, duration: 5.4, ease: "none" }, 18.6);
+
+      /* ---------- S6 CTA: directional, decisive ---------- */
+      tl.fromTo("#s6-panel", { y: 1920 }, { y: 0, duration: 0.55, ease: "power4.inOut" }, 24.0);
+      tl.fromTo("#s6-logo", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: E.out }, 24.45);
+      tl.fromTo("#s6-face", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, 24.6);
+      tl.fromTo("#s6-pg", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: E.out }, 25.0);
+      tl.fromTo("#s6-h1", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.5, ease: E.slam }, 25.2);
+      tl.fromTo("#s6-h2", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: E.out }, 25.5);
+      tl.fromTo("#s6-url", { opacity: 0, y: 80, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, 27.2);
+      for (let i = 0; i < 3; i++) {
+        tl.fromTo("#s6-url", { boxShadow: "0 0 0 0 rgba(246,196,83,.85)" }, { boxShadow: "0 0 0 34px rgba(246,196,83,0)", duration: 0.7, ease: "power2.out" }, 27.8 + i * 0.75);
+      }
+      tl.to("#s6-face", { scale: 1.04, duration: 5, ease: "none" }, 25.2);
+
+      /* ---------- captions ---------- */
+      ["c1","c2","c3","c4","c5","c6","c7","c8","c9"].forEach((id) => {
+        const start = parseFloat(document.getElementById(id).dataset.start);
+        tl.fromTo("#" + id + " span", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.16, ease: E.slam }, start);
+      });
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
