@@ -22,7 +22,7 @@
   @media(max-width:800px){.two{grid-template-columns:1fr}}
   .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
   .card h2{font-size:14px;margin:0 0 12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
-  .kpi .val{font-size:28px;font-weight:700}
+  .kpi .val{font-size:clamp(20px,2.2vw,28px);font-weight:700;white-space:nowrap}
   .kpi .delta{font-size:13px;font-weight:600}
   .up{color:var(--good)}.down{color:var(--bad)}
   .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:8px}
@@ -43,6 +43,35 @@
   .rank .n{width:26px;height:26px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-size:12px;font-weight:700}
   .rank.me{font-weight:700}.rank.me .n{background:var(--accent);color:#fff}
   .rank .name{flex:1}
+  .mtag{display:none}
+  @media(max-width:640px){.mtag{display:inline}}
+  .chart-wrap{min-height:200px}
+  @media(max-width:640px){
+    .wrap{padding:16px 12px 32px}
+    h1{font-size:20px}
+    header{margin-bottom:14px}
+    .controls{width:100%}
+    .controls select,.controls button{flex:1;min-height:44px}
+    .grid{gap:10px}
+    .kpis{grid-template-columns:1fr 1fr;margin-bottom:10px}
+    .kpis .card:last-child:nth-child(odd){grid-column:1/-1}
+    .two{margin-bottom:10px}
+    .card{padding:14px;border-radius:10px}
+    .card h2{font-size:11px;margin-bottom:8px}
+    .kpi .val{font-size:21px}
+    .kpi .delta{font-size:12px}
+    /* Jadual jadi senarai kad */
+    table thead{display:none}
+    table,tbody,tr,td{display:block;width:100%}
+    tr{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 10px;padding:10px 0;border-bottom:1px solid var(--line)}
+    tr:last-child{border-bottom:0}
+    td{border:0;padding:0;text-align:left!important;font-size:13px}
+    td::before{content:attr(data-l);display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.03em}
+    td.m{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:15px}
+    td::before{font-size:10px}
+    td.m::before{display:none}
+    td.st{display:none}
+  }
 </style>
 </head>
 <body>
@@ -67,7 +96,7 @@
   <section class="grid two">
     <div class="card">
       <h2>Jualan Bulanan vs Sasaran (RM)</h2>
-      <div id="chart"></div>
+      <div id="chart" class="chart-wrap"></div>
       <div class="legend"><span><i style="background:var(--accent)"></i>Jualan</span><span><i style="background:var(--warn)"></i>Sasaran</span></div>
     </div>
     <div class="card">
@@ -132,28 +161,31 @@ function render(){
   chart(view);
   $("rows").innerHTML=view.map(r=>{
     const p=pct(r.sales,r.target), c=p>=100?"ok":p>=90?"mid":"low", s=p>=100?"Capai":p>=90?"Hampir":"Bawah";
-    return `<tr><td>${r.m}</td><td class="num">${fmt(r.sales)}</td><td class="num">${fmt(r.target)}</td><td class="num">${p}%</td><td class="num">${r.orders}</td><td class="num">${r.newc}</td><td><span class="tag ${c}">${s}</span></td></tr>`;
+    const tag=`<span class="tag ${c}">${s}</span>`;
+    return `<tr><td class="m">${r.m}<span class="mtag">${tag}</span></td><td class="num" data-l="Jualan (RM)">${fmt(r.sales)}</td><td class="num" data-l="Sasaran (RM)">${fmt(r.target)}</td><td class="num" data-l="Pencapaian">${p}%</td><td class="num" data-l="Order">${r.orders}</td><td class="num" data-l="Pelanggan Baru">${r.newc}</td><td class="st">${tag}</td></tr>`;
   }).join("");
   $("rank").innerHTML=TEAM.map((t,i)=>`<div class="rank ${t[0]==="Ahmad Faiz"?"me":""}"><span class="n">${i+1}</span><span class="name">${t[0]}</span><span>RM ${fmt(t[1])}</span></div>`).join("");
 }
 
 function chart(rows){
-  const W=640,H=280,P={l:48,r:12,t:12,b:28};
-  const max=Math.ceil(Math.max(...rows.map(r=>Math.max(r.sales,r.target)))/10000)*10000;
+  const cw=$("chart").clientWidth||640, small=cw<480;
+  const W=Math.max(280,Math.round(cw)),H=small?220:280,P={l:small?34:44,r:8,t:12,b:24};
+  const max=Math.ceil(Math.max(...rows.map(r=>Math.max(r.sales,r.target)))*1.05/20000)*20000;
   const iw=W-P.l-P.r, ih=H-P.t-P.b, bw=iw/rows.length;
   const y=v=>P.t+ih-v/max*ih;
   let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Carta jualan vs sasaran">`;
-  for(let i=0;i<=4;i++){const v=max/4*i;s+=`<line x1="${P.l}" x2="${W-P.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${P.l-6}" y="${y(v)+4}" text-anchor="end" font-size="10" fill="var(--muted)">${v/1000}k</text>`;}
+  for(let i=0;i<=4;i++){const v=max/4*i;s+=`<line x1="${P.l}" x2="${W-P.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${P.l-6}" y="${y(v)+4}" text-anchor="end" font-size="11" fill="var(--muted)">${v/1000}k</text>`;}
   rows.forEach((r,i)=>{
     const x=P.l+i*bw+bw*.2, w=bw*.6;
     s+=`<rect x="${x}" y="${y(r.sales)}" width="${w}" height="${P.t+ih-y(r.sales)}" rx="4" fill="var(--accent)"><title>${r.m}: RM ${fmt(r.sales)}</title></rect>`;
     s+=`<line x1="${x-3}" x2="${x+w+3}" y1="${y(r.target)}" y2="${y(r.target)}" stroke="var(--warn)" stroke-width="3"><title>Sasaran: RM ${fmt(r.target)}</title></line>`;
-    s+=`<text x="${x+w/2}" y="${H-8}" text-anchor="middle" font-size="10" fill="var(--muted)">${r.m.split(" ")[0]}</text>`;
+    if(!small||rows.length<=6||i%2===(rows.length-1)%2) s+=`<text x="${x+w/2}" y="${H-6}" text-anchor="middle" font-size="11" fill="var(--muted)">${r.m.split(" ")[0]}</text>`;
   });
   $("chart").innerHTML=s+"</svg>";
 }
 
 $("period").addEventListener("change",render);
+let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>chart(view),120)});
 $("export").addEventListener("click",()=>{
   const csv=["Bulan,Jualan,Sasaran,Order,PelangganBaru",...view.map(r=>[r.m,r.sales,r.target,r.orders,r.newc].join(","))].join("\n");
   const a=document.createElement("a");
